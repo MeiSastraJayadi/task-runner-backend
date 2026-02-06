@@ -2,9 +2,11 @@ use axum::{
     Router
 };
 use dotenvy::dotenv;
-use task_runner_backend::{db::db_connection, routes::auth_router, state::AppState};
+use task_runner_backend::{db::db_connection, handlers::ApiDoc, routes::auth_router, state::AppState};
 use tower_http::trace::{DefaultMakeSpan, DefaultOnResponse, TraceLayer};
 use tracing::Level;
+use utoipa::OpenApi;
+use utoipa_swagger_ui::SwaggerUi;
 use std::{env, sync::Arc};
 
 #[tokio::main]
@@ -28,6 +30,10 @@ async fn main() {
     
 
     let app = Router::new()
+        .merge(
+            SwaggerUi::new("/docs")
+                .url("/api-doc/openapi.json", ApiDoc::openapi())
+        )
         .nest("/auth", auth_router::auth_router())
         .layer(
             TraceLayer::new_for_http()

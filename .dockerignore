@@ -1,0 +1,7 @@
+target
+.git
+.env
+node_modules
+Dockerfile
+docker-compose.yml
+settings.json

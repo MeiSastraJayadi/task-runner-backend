@@ -5,6 +5,15 @@ use crate::{
     services::auth_services, state::AppState};
 
 
+#[utoipa::path(
+    post,
+    path = "/auth/register",
+    request_body = UserRegister,
+    responses(
+        (status = 201, description = "User registered", body = AuthResponse),
+        (status = 400, description = "Bad request")
+    )
+)]
 pub async fn register(
     State(state) : State<AppState>, 
     Json(req) : Json<UserRegister>
@@ -22,6 +31,16 @@ pub async fn register(
     Ok(Json(AuthResponse { token: token }))
 }
 
+
+#[utoipa::path(
+    post,
+    path = "/auth/login",
+    request_body = UserLogin,
+    responses(
+        (status = 201, description = "User login", body = AuthResponse),
+        (status = 400, description = "Bad request")
+    )
+)]
 pub async fn login(
     State(state) : State<AppState>, 
     Json(req) : Json<UserLogin>
