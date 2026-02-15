@@ -8,7 +8,7 @@ WORKDIR /app
 # Cache dependencies
 COPY Cargo.toml Cargo.lock ./
 RUN mkdir src && echo "fn main() {}" > src/main.rs
-RUN cargo build --release
+RUN DATABASE_URL=$DATABASE_URL cargo build --release
 RUN rm -rf src
 
 # Build real app
