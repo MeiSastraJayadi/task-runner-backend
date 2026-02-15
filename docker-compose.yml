@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   api:
-    build: .
+    image: 835928192063.dkr.ecr.ap-southeast-1.amazonaws.com/task-runner-backend:1.0.0 
     container_name: task-runner-api
     ports:
       - "8080:8080"
